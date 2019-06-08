@@ -17,6 +17,19 @@ export class Docker {
       fun({ status, value: stdout.trim() });
     });
   }
+
+  copyFrom(from, to, fun) {
+    exec(`docker cp ${this.id}:${from} ${to}`, (err, stdout, stderr) => {
+      let status = true;
+      if (err) {
+        status = false;
+        logger.error(`Error in copying file(${this.id}:${from}) to docker(${to})`, err);
+      }
+      logger.info(`Output copying file(${this.id}:${from}) to docker(${to})`, stdout);
+      fun({ status, value: stdout.trim() });
+    });
+  }
+
   
 }
 
