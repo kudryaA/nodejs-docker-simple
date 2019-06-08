@@ -42,7 +42,17 @@ export class Docker {
     });
   }
 
-  
+  stop(fun = (answer) => {}) {
+    exec(`docker stop ${this.id}`, (err, stdout, stderr) => {
+      let status = true;
+      if (err) {
+        status = false;
+        logger.error(`Error in stoping docker ${this.id}`, err);
+      }
+      logger.info(`Output in stoping docker ${this.id}`, stdout);
+      fun({ status, value: stdout.trim() });
+    });
+  }
   
 }
 

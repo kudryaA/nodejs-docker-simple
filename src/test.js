@@ -8,7 +8,8 @@ createContainer('video_processing', (answer) => {
         docker.copyFrom('/home/app.py', '/home/kudrya/app.py', (answer) => {
           if (answer.status) {
             docker.exec('python controller.py screen', (answer) => {
-              console.log(answer);
+              console.log(answer.value);
+              docker.stop();
             });
           }
         });
