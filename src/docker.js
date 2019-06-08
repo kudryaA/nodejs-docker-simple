@@ -1,6 +1,24 @@
 import logger from './utils/logger';
 import { exec } from 'child_process';
 
+export class Docker {
+  constructor(id) {
+    this.id = id;
+  }
+
+  copyTo(from, to, fun) {
+    exec(`docker cp ${from} ${this.id}:${to}`, (err, stdout, stderr) => {
+      let status = true;
+      if (err) {
+        status = false;
+        logger.error(`Error in copying file(${from}) to docker(${this.id}:${to})`, err);
+      }
+      logger.info(`Output copying file(${from}) to docker(${this.id}:${to})`, stdout);
+      fun({ status, value: stdout.trim() });
+    });
+  }
+  
+}
 
 export function createContainer(image, fun, settings = {}, cmd = 'bash') {
   let line = '';
@@ -14,6 +32,6 @@ export function createContainer(image, fun, settings = {}, cmd = 'bash') {
       logger.error('Error in creating docker', err);
     }
     logger.info('Output docker creating', stdout);
-    fun({ status, value: stdout})
+    fun({ status, value: stdout.trim() });
   });
 }
