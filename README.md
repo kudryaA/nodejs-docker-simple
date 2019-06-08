@@ -1,6 +1,7 @@
 # nodejs-docker-simple
 Simple library for working with docker in node js
 # Documentation
+Used es6! Need babel.
 For import lib should use 
 ``` js
 import { createContainer, Docker } from './docker';
