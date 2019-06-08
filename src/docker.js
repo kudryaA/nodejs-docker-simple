@@ -30,6 +30,19 @@ export class Docker {
     });
   }
 
+  exec(cmd, fun) {
+    exec(`docker exec ${this.id} ${cmd}`, (err, stdout, stderr) => {
+      let status = true;
+      if (err) {
+        status = false;
+        logger.error(`Error in exec ${cmd} in docker(${this.id})`, err);
+      }
+      logger.info(`Output exec ${cmd} in docker(${this.id})`, stdout);
+      fun({ status, value: stdout.trim() });
+    });
+  }
+
+  
   
 }
 
