@@ -30,3 +30,19 @@ const from = '/home/kudrya/Downloads/video'; //source file in container
 const to = '/home/video'; //destination file in computer
 const fun = (answer) => {console.log(answer.value)}; //calback function (answer is object {status, value}
 docker.copyFrom(from, to, fun);
+```
+* exec command in container
+```js
+const id = 'safsassf'; //container id
+const docker = new Docker(id); // docker object
+const cmd = 'bash'; // command for execute
+const fun = (answer) => {console.log(answer.value)}; //calback function (answer is object {status, value}
+docker.exec(cmd, fun);
+```
+* stop container
+```js
+const id = 'safsassf'; //container id
+const docker = new Docker(id); // docker object
+const fun = (answer) => {console.log(answer.value)}; //calback function (answer is object {status, value}
+docker.stop(fun);
+```
